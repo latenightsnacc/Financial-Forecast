@@ -79,10 +79,4 @@ calculate.addEventListener('click', function(){
   
     let net = netValue(totalA, totalB);
     netFlow.textContent = net;
-
-    if(net < 0 ){
-        netFlow.style.border = '1px solid red';
-    } else {
-        netFlow.style.border = '1px solid green';
-    }
 });

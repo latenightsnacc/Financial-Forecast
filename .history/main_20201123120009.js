@@ -32,13 +32,14 @@ let totalCosts = document.getElementById('total-costs');
 let netFlow = document.getElementById('net-flow-value');
 
 let initialValue = 0;
+let costs = 
+    [webDevCost, carsVans, rentRates, initialStockPurchase, bizReg, initialMarketing, companyIdentity,
+    insurance, tradeSub, vehicleMtnce, utilityCost, wageSalaries, accounting, marketing,
+    stationery, travelEntmnt, pensionMedical, staffSubs, stockPurchase, otherCost];
 
-let costs = [webDevCost, carsVans, rentRates, initialStockPurchase, bizReg, initialMarketing, companyIdentity,
-           insurance, tradeSub, vehicleMtnce, utilityCost, wageSalaries, accounting, marketing,
-           stationery, travelEntmnt, pensionMedical, staffSubs, stockPurchase, otherCost];
-// let costs = [webDevCost.value, carsVans.value, rentRates.value, initialStockPurchase.value, bizReg.value, initialMarketing.value, companyIdentity.value,
-//            insurance.value, tradeSub.value, vehicleMtnce.value, utilityCost.value, wageSalaries.value, accounting.value, marketing.value,
-//            stationery.value, travelEntmnt.value, pensionMedical.value, staffSubs.value, stockPurchase.value, otherCost.value];
+    // [webDevCost.value, carsVans.value, rentRates.value, initialStockPurchase.value, bizReg.value, initialMarketing.value, companyIdentity.value,
+    //     insurance.value, tradeSub.value, vehicleMtnce.value, utilityCost.value, wageSalaries.value, accounting.value, marketing.value,
+    //     stationery.value, travelEntmnt.value, pensionMedical.value, staffSubs.value, stockPurchase.value, otherCost.value];
 
 
 // CALCULATE BUTTON
@@ -47,8 +48,6 @@ let calculate = document.getElementById('calculate');
 const checkValue = val => {
     if (val.value === null || val.value === ''){
         val.value = 0;
-    } else {
-        return val.value;
     }
 }
 const sum = (a,b) => {
@@ -56,33 +55,22 @@ const sum = (a,b) => {
     checkValue(b);
     return parseFloat(a.value) + parseFloat(b.value);
 };
-let sumCosts = costs.map(a => {
-    checkValue(a);
-    
-})
-    
-    
+const sumAll = (accumulator, item) => {
+    checkValue(accumulator);
+    checkValue(item);
+    return parseFloat(accumulator) + item;
+};
 const netValue = (a, b) => {
     return a - b;
 };
 
 calculate.addEventListener('click', function(){
     // Total Income Calculation
-    
     let totalA = sum(salesIncome,otherIncome);
     totalIncome.textContent = totalA;
 
-    let totalB = costs.reduce((cT,a) => {
-        return cT + parseFloat(a.value);
-    }, 0);
+    let totalB = costs.reduce((a,b) => a.value + b);
     totalCosts.textContent = totalB;
   
-    let net = netValue(totalA, totalB);
-    netFlow.textContent = net;
-
-    if(net < 0 ){
-        netFlow.style.border = '1px solid red';
-    } else {
-        netFlow.style.border = '1px solid green';
-    }
+    netFlow.textContent = netValue(totalA,totalB);
 });

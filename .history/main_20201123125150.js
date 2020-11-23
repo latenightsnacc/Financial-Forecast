@@ -68,21 +68,15 @@ const netValue = (a, b) => {
 
 calculate.addEventListener('click', function(){
     // Total Income Calculation
-    
+    console.log(costs.reduce((cT,a) => {
+        return cT + parseFloat(a.value);
+    }, 0));
     let totalA = sum(salesIncome,otherIncome);
     totalIncome.textContent = totalA;
 
-    let totalB = costs.reduce((cT,a) => {
-        return cT + parseFloat(a.value);
-    }, 0);
+    let totalB = sumCosts;
     totalCosts.textContent = totalB;
   
     let net = netValue(totalA, totalB);
     netFlow.textContent = net;
-
-    if(net < 0 ){
-        netFlow.style.border = '1px solid red';
-    } else {
-        netFlow.style.border = '1px solid green';
-    }
 });
